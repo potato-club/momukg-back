@@ -41,7 +41,3 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
