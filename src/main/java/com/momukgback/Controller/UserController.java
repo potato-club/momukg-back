@@ -7,6 +7,7 @@ import com.momukgback.Service.Interface.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = "users")
 @Tag(name = "Users & Authorization Controller", description = "유저 및 인증 API")
+@Slf4j
 public class UserController {
     private final UserService userService;
 
@@ -24,6 +26,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<String> userSignUp(@RequestBody UserSignUpDto requestDto, HttpServletResponse response) throws Exception {
         userService.signUP(requestDto, response);
+        log.info("회원가입 정보 컨트롤러에서 확인", requestDto.getEmail());
         return ResponseEntity.ok("회원가입 완료");
     }
 

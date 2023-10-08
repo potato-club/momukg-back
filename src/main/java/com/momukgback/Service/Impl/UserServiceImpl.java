@@ -6,6 +6,7 @@ import com.momukgback.JWT.JwtTokenProvider;
 import com.momukgback.enums.UserRole;
 import com.momukgback.error.ErrorCode;
 import com.momukgback.error.exception.UnAuthorizedException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.momukgback.Dto.Login.UserSignUpDto;
 import com.momukgback.Entity.User;
@@ -21,6 +22,7 @@ import javax.transaction.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -34,6 +36,7 @@ public class UserServiceImpl implements UserService {
         }
         requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         User user = requestDto.toEntity();
+        log.info("회원가입 정보 서비스쪽에서 확인");
         userRepository.save(user);
     }
 
