@@ -52,7 +52,9 @@ public class UserServiceImpl implements UserService {
 
         // RefreshToken을 User 엔티티에 저장하고 데이터베이스에 반영
         user.RefreshToken(refreshToken);
+        log.info("리프레시 토큰", refreshToken);
         userRepository.save(user);
+        log.info("로그인 완료");
         return UserLoginResponseDto.builder()
                 .responseCode("200")
                 .build();

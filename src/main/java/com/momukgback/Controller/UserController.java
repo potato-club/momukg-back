@@ -33,6 +33,7 @@ public class UserController {
     @Operation(summary = "일반 로그인 API")
     @GetMapping("/login")
     public UserLoginResponseDto login(@RequestBody UserLoginRequestDto requestDto, HttpServletResponse response) {
+        log.info("로그인 정보 컨트롤러에서 확인", requestDto.getEmail());
         return userService.login(requestDto, response);
     }
 
