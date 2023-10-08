@@ -36,12 +36,11 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // 로그인, 회원가입은 토큰 없이도 호출 가능하도록 permitAll() 설정
                 .antMatchers(HttpMethod.POST,"/users/signup").permitAll()
-                .antMatchers(HttpMethod.GET,"/users/login/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/users/login/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/chats/**").permitAll()
                 .antMatchers(
                         "/v3/api-docs",
                         "/swagger*/**").permitAll()
-
                 // 정보수정은 USER, MANAGER, ADMIN 권한이 필요하도록 설정
                 // .antMatchers(HttpMethod.POST,"").hasAnyAuthority(UserRole.USER.toString())
                 .anyRequest().authenticated()
