@@ -2,12 +2,13 @@ package com.momukgback.Entity;
 
 import com.momukgback.Dto.userStatus.UserStatusRequestDto;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @Table(name = "userStatus")
 public class UserStatus extends BaseTimeEntity{

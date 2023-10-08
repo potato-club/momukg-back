@@ -25,8 +25,8 @@ public class UserController {
     @Operation(summary = "회원가입 API")
     @PostMapping("/signup")
     public ResponseEntity<String> userSignUp(@RequestBody UserSignUpDto requestDto, HttpServletResponse response) throws Exception {
-        userService.signUP(requestDto, response);
         log.info("회원가입 정보 컨트롤러에서 확인", requestDto.getEmail());
+        userService.signUP(requestDto, response);
         return ResponseEntity.ok("회원가입 완료");
     }
 

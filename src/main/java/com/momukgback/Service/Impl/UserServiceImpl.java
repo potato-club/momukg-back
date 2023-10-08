@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public void signUP(UserSignUpDto requestDto, HttpServletResponse response) throws Exception {
-        if(userRepository.findByEmail(requestDto.getEmail()).isPresent()){
-            throw new Exception("이미 존재하는 이메일 입니다.");
+    public void signUP(UserSignUpDto requestDto, HttpServletResponse response) {
+        if(userRepository.existsByEmail(requestDto.getEmail())){
+            throw new UnAuthorizedException("회원가입 실패", ErrorCode.ACCESS_DENIED_EXCEPTION);
         }
         requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         User user = requestDto.toEntity();
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         setJwtTokenInHeader(requestDto.getEmail(), response, refreshToken);
 
         // RefreshToken을 User 엔티티에 저장하고 데이터베이스에 반영
-        user.setRefreshToken(refreshToken);
+        user.RefreshToken(refreshToken);
         userRepository.save(user);
         return UserLoginResponseDto.builder()
                 .responseCode("200")

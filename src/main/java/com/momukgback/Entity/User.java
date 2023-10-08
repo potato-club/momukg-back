@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Getter
 @Builder
 @Entity
-@Setter
 @RequiredArgsConstructor
 @Table(name = "USERS")
 @AllArgsConstructor
@@ -35,4 +34,7 @@ public class User extends BaseTimeEntity{
     @Column(length = 500)
     private String refreshToken;
 
+    public void RefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }
