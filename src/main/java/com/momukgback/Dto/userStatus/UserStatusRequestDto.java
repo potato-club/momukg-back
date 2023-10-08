@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserStatusRequestDto {
-    private String yesfood;
-    private Integer money;
+    private String userOption1;
+    private String userOption2;
+    private String userOption3;
 }

@@ -23,8 +23,8 @@ public class UserStatusController {
     @Operation(summary = "모든 유저 상태 조회 API")
     @GetMapping
     public ResponseEntity<List<UserStatusResponseDto>> getAllBoards() {
-        List<UserStatusResponseDto> boardList = userStatusService.getAllStatus();
-        return ResponseEntity.ok(boardList);
+        List<UserStatusResponseDto> allUesrStatus = userStatusService.getAllStatus();
+        return ResponseEntity.ok(allUesrStatus);
     }
 
     @Operation(summary = "유저 지정 상태 조회 API")
