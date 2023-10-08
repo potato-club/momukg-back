@@ -52,7 +52,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 if (jwtTokenProvider.existsRefreshToken(RT) && jwtTokenProvider.validateToken(refreshToken)) {
                     accessToken = jwtTokenProvider.reissueAccessToken(refreshToken);
                     jwtTokenProvider.setHeaderAccessToken(response, accessToken);
-                    user.setRefreshToken(refreshToken);
+                    user.RefreshToken(refreshToken);
                     this.setAuthentication(accessToken);
                 }
             } else {
