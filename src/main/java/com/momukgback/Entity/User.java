@@ -18,7 +18,7 @@ public class User extends BaseTimeEntity{
     @Column(name = "user_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "user_nickname", unique = true, nullable = false)
     private String nickname;
 
     @Column(unique = true, nullable = false)
@@ -33,6 +33,7 @@ public class User extends BaseTimeEntity{
 
     @Column(length = 500)
     private String refreshToken;
+
 
     public void RefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;

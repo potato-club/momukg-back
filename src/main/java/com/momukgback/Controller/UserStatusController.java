@@ -1,5 +1,7 @@
 package com.momukgback.Controller;
 
+import com.momukgback.Dto.Login.UserProfileResponseDto;
+import com.momukgback.Dto.userStatus.UserStatusListDto;
 import com.momukgback.Dto.userStatus.UserStatusRequestDto;
 import com.momukgback.Dto.userStatus.UserStatusResponseDto;
 import com.momukgback.Service.Interface.UserStatusService;
@@ -21,17 +23,17 @@ public class UserStatusController {
     private final UserStatusService userStatusService;
 
     @Operation(summary = "모든 유저 상태 조회 API")
-    @GetMapping
-    public ResponseEntity<List<UserStatusResponseDto>> getAllBoards() {
-        List<UserStatusResponseDto> allUesrStatus = userStatusService.getAllStatus();
+    @GetMapping("/options")
+    public ResponseEntity<List<UserStatusListDto>> getAllBoards() {
+        List<UserStatusListDto> allUesrStatus = userStatusService.getAllStatus();
         return ResponseEntity.ok(allUesrStatus);
     }
 
-    @Operation(summary = "유저 지정 상태 조회 API")
+    @Operation(summary = "내 유저 상태 조회 API")
     @GetMapping("/{statusId}")
-    public ResponseEntity<UserStatusResponseDto> getBoardById(@PathVariable(name = "statusId") Long statusId) {
-        UserStatusResponseDto dto = userStatusService.getStatusById(statusId);
-        return ResponseEntity.ok(dto);
+    public UserStatusResponseDto viewStatus(@PathVariable(name = "statusId") Long statusId,
+                                            HttpServletRequest request){
+        return userStatusService.viewStatus(statusId, request);
     }
 
 
@@ -43,15 +45,6 @@ public class UserStatusController {
         return ResponseEntity.ok("사용자의 상태가 저장되었습니다.");
     }
 
-    @Operation(summary = "유저 상태 수정 API")
-    @PutMapping("/{statusId}")
-    public ResponseEntity<String> updateStatus(@PathVariable(name = "statusId") Long statusId,
-                                              @RequestBody UserStatusRequestDto updateDto,
-                                              HttpServletRequest request){
-        userStatusService.updateStatus(statusId, updateDto, request);
-        return ResponseEntity.ok("유저 상태 수정이 완료되었습니다.");
-    }
-
     @Operation(summary = "유저 상태 삭제 API")
     @DeleteMapping("/{statusId}")
     public ResponseEntity<String> deleteBoard(@PathVariable(name = "statusId") Long statusId,
@@ -59,6 +52,27 @@ public class UserStatusController {
         userStatusService.deleteStatus(statusId, request);
         return  ResponseEntity.ok("유저 상태가 삭제되었습니다.");
     }
+
+
+
+
+    /* @Operation(summary = "유저 지정 상태 조회 API")
+    @GetMapping("/{statusId}")
+    public ResponseEntity<UserStatusResponseDto> getBoardById(@PathVariable(name = "statusId") Long statusId) {
+        UserStatusResponseDto dto = userStatusService.getStatusById(statusId);
+        return ResponseEntity.ok(dto);
+    }*/
+
+    /*@Operation(summary = "유저 상태 수정 API")
+    @PutMapping("/{statusId}")
+    public ResponseEntity<String> updateStatus(@PathVariable(name = "statusId") Long statusId,
+                                              @RequestBody UserStatusRequestDto updateDto,
+                                              HttpServletRequest request){
+        userStatusService.updateStatus(statusId, updateDto, request);
+        return ResponseEntity.ok("유저 상태 수정이 완료되었습니다.");
+    }*/
+
+
 
 
 

@@ -1,10 +1,11 @@
 package com.momukgback.Service.Impl;
 
+import com.momukgback.Dto.userStatus.UserStatusListDto;
 import com.momukgback.Dto.userStatus.UserStatusRequestDto;
 import com.momukgback.Dto.userStatus.UserStatusResponseDto;
 import com.momukgback.Entity.User;
 import com.momukgback.Entity.UserStatus;
-import com.momukgback.Repository.UserRepository;
+import com.momukgback.JWT.JwtTokenProvider;
 import com.momukgback.Repository.UserStatusRepository;
 import com.momukgback.Service.Interface.UserService;
 import com.momukgback.Service.Interface.UserStatusService;
@@ -28,7 +29,52 @@ public class UserStatusServicelmpl implements UserStatusService {
 
     private final UserStatusRepository userStatusRepository;
     private final UserService userService;
-    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    /*@Override
+    public UserStatusResponseDto getStatusById(Long statusId) {
+        Optional<UserStatus> statusAuth = userStatusRepository.findById(statusId);
+        if(statusAuth.isEmpty()) throw new NotFoundException("유저 상태 없음", ErrorCode.NOT_FOUND_EXCEPTION);
+        UserStatus userStatus = statusAuth.get();
+        UserStatusResponseDto dto = new UserStatusResponseDto(userStatus);
+        return dto;
+    }
+
+
+    */
+
+    @Override
+    public UserStatus getStatus(Long id) {
+        return userStatusRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 가게입니다", ErrorCode.NOT_FOUND_EXCEPTION));
+    }
+
+
+    @Override
+    public UserStatusResponseDto viewStatus(Long id, HttpServletRequest request){
+        UserStatus userStatus = getStatus(id);
+        UserStatusResponseDto responseDto = new UserStatusResponseDto(userStatus);
+        return responseDto;
+    }
+
+    @Override
+    public void updateStatus(Long statusId, UserStatusRequestDto updateDto, HttpServletRequest request) {
+            UserStatus userStatus = vlidateStatus(statusId, request);
+            userStatus.updateStatus(updateDto);
+    }
+
+    @Override
+    public List<UserStatusListDto> getAllStatus() {
+        List<UserStatus> userStatuses = userStatusRepository.findAll();
+
+        List<UserStatusListDto> responseDtosList = new ArrayList<>();
+        for (UserStatus userStatus : userStatuses){
+            UserStatusListDto responseDto = new UserStatusListDto(userStatus);
+            responseDtosList.add(responseDto);
+        }
+
+        return responseDtosList;
+    }
 
 
 
@@ -41,35 +87,6 @@ public class UserStatusServicelmpl implements UserStatusService {
         UserStatus userStatus = new UserStatus(requestDto, user);
         userStatusRepository.save(userStatus);
 
-    }
-
-    @Override
-    public UserStatusResponseDto getStatusById(Long statusId) {
-        Optional<UserStatus> statusAuth = userStatusRepository.findById(statusId);
-        if(statusAuth.isEmpty()) throw new NotFoundException("게시물 없음", ErrorCode.NOT_FOUND_EXCEPTION);
-        UserStatus userStatus = statusAuth.get();
-        UserStatusResponseDto dto = new UserStatusResponseDto(userStatus);
-        return dto;
-    }
-
-
-    @Override
-    public List<UserStatusResponseDto> getAllStatus() {
-        List<UserStatus> userStatuses = userStatusRepository.findAll();
-
-        List<UserStatusResponseDto> responseDtosList = new ArrayList<>();
-        for (UserStatus userStatus : userStatuses){
-            UserStatusResponseDto responseDto = new UserStatusResponseDto(userStatus);
-            responseDtosList.add(responseDto);
-        }
-
-        return responseDtosList;
-    }
-
-    @Override
-    public void updateStatus(Long statusId, UserStatusRequestDto updateDto, HttpServletRequest request) {
-            UserStatus userStatus = vlidateStatus(statusId, request);
-            userStatus.updateStatus(updateDto);
     }
 
     @Override
@@ -90,5 +107,6 @@ public class UserStatusServicelmpl implements UserStatusService {
         }
         return userStatus;
     }
+
 
 }

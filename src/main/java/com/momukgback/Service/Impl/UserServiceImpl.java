@@ -2,6 +2,7 @@ package com.momukgback.Service.Impl;
 
 import com.momukgback.Dto.Login.UserLoginRequestDto;
 import com.momukgback.Dto.Login.UserLoginResponseDto;
+import com.momukgback.Dto.Login.UserProfileResponseDto;
 import com.momukgback.JWT.JwtTokenProvider;
 import com.momukgback.enums.UserRole;
 import com.momukgback.error.ErrorCode;
@@ -59,6 +60,20 @@ public class UserServiceImpl implements UserService {
                 .responseCode("200")
                 .build();
     }
+
+
+    @Override
+    public UserProfileResponseDto viewUser(HttpServletRequest request){
+        User user = findUserByToken(request);
+
+        UserProfileResponseDto responseDto = UserProfileResponseDto.builder()
+                .nickname(user.getNickname())
+                .userRole(user.getUserRole())
+                .build();
+
+        return responseDto;
+    }
+
 
     public void setJwtTokenInHeader(String email, HttpServletResponse response, String refreshToken) {
         UserRole userRole = userRepository.findByEmail(email)

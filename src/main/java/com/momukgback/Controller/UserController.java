@@ -2,6 +2,7 @@ package com.momukgback.Controller;
 
 import com.momukgback.Dto.Login.UserLoginRequestDto;
 import com.momukgback.Dto.Login.UserLoginResponseDto;
+import com.momukgback.Dto.Login.UserProfileResponseDto;
 import com.momukgback.Dto.Login.UserSignUpDto;
 import com.momukgback.Service.Interface.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
@@ -27,6 +29,7 @@ public class UserController {
     public ResponseEntity<String> userSignUp(@RequestBody UserSignUpDto requestDto, HttpServletResponse response) throws Exception {
         log.info("회원가입 정보 컨트롤러에서 확인", requestDto.getEmail());
         userService.signUP(requestDto, response);
+        log.info("회원가입 완료");
         return ResponseEntity.ok("회원가입 완료");
     }
 
@@ -35,6 +38,12 @@ public class UserController {
     public UserLoginResponseDto login(@RequestBody UserLoginRequestDto requestDto, HttpServletResponse response) {
         log.info("로그인 정보 컨트롤러에서 확인", requestDto.getEmail());
         return userService.login(requestDto, response);
+    }
+    
+    @Operation(summary = "내 정보 확인 API")
+    @GetMapping("")
+    public UserProfileResponseDto veiwUser(HttpServletRequest request){
+        return userService.viewUser(request);
     }
 
 }
