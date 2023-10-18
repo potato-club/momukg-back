@@ -56,7 +56,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     this.setAuthentication(accessToken);
                 }
             } else {
-                if (jwtTokenProvider.existsRefreshToken(RT) && jwtTokenProvider.validateToken(accessToken)) {
+                if (jwtTokenProvider.validateToken(accessToken)) {
                     this.setAuthentication(accessToken);
                 }
             }
