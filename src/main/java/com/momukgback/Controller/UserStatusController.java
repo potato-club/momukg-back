@@ -56,21 +56,14 @@ public class UserStatusController {
 
 
 
-    /* @Operation(summary = "유저 지정 상태 조회 API")
-    @GetMapping("/{statusId}")
-    public ResponseEntity<UserStatusResponseDto> getBoardById(@PathVariable(name = "statusId") Long statusId) {
-        UserStatusResponseDto dto = userStatusService.getStatusById(statusId);
-        return ResponseEntity.ok(dto);
-    }*/
-
-    /*@Operation(summary = "유저 상태 수정 API")
+    @Operation(summary = "유저 상태 수정 API")
     @PutMapping("/{statusId}")
     public ResponseEntity<String> updateStatus(@PathVariable(name = "statusId") Long statusId,
                                               @RequestBody UserStatusRequestDto updateDto,
                                               HttpServletRequest request){
         userStatusService.updateStatus(statusId, updateDto, request);
         return ResponseEntity.ok("유저 상태 수정이 완료되었습니다.");
-    }*/
+    }
 
 
 
