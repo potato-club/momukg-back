@@ -46,7 +46,7 @@ public class UserStatusServicelmpl implements UserStatusService {
     @Override
     public UserStatus getStatus(Long id) {
         return userStatusRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("존재하지 않는 가게입니다", ErrorCode.NOT_FOUND_EXCEPTION));
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 아이디 입니다.", ErrorCode.NOT_FOUND_EXCEPTION));
     }
 
 
@@ -83,6 +83,10 @@ public class UserStatusServicelmpl implements UserStatusService {
         User user = userService.findUserByToken(request);
         if(user.getUserRole() != UserRole.USER) {
             throw new UnAuthorizedException("401 권한 없음", ErrorCode.NOT_ALLOW_WRITE_EXCEPTION);
+        }
+        Optional<UserStatus> existingUserStatus = userStatusRepository.findByUserId(user.getId());
+        if (existingUserStatus.isPresent()) {
+            throw new UnAuthorizedException("403 이미 내용이 존재합니다.", ErrorCode.NOT_ALLOW_WRITE_EXCEPTION);
         }
         UserStatus userStatus = new UserStatus(requestDto, user);
         userStatusRepository.save(userStatus);

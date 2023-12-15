@@ -13,7 +13,7 @@ public interface UserStatusService {
     List<UserStatusListDto> getAllStatus();
     void updateStatus(Long statusId, UserStatusRequestDto updateDto,
                       HttpServletRequest request);
-    void getStatusCreate( UserStatusRequestDto requestDto,
+    void getStatusCreate(UserStatusRequestDto requestDto,
                          HttpServletRequest request);
 
     UserStatus getStatus(Long id);
