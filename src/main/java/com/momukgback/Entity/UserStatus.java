@@ -29,9 +29,8 @@ public class UserStatus extends BaseTimeEntity{
 
 
     // 사용자화에 들어갈 기본 세팅에 대한 정보 저장 값은 추후 협의 후 추가
-    
-    // Many-to-One relationship with User
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

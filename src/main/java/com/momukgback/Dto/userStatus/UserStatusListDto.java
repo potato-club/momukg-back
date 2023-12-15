@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserStatusListDto {
     @Schema(description = "유저 상태 저장 id")
-    private Long id;
+    private Long userStatus_id;
+
+    @Schema(description = "유저 고유 id")
+    private Long userUnique_id;
+
     @Schema(description = "유저 닉네임")
     private String nickname;
     @Schema(description = "유저 욥션 1")
@@ -22,7 +26,8 @@ public class UserStatusListDto {
     private String userOption3;
 
     public UserStatusListDto(UserStatus userStatus) {
-        this.id = userStatus.getId();
+        this.userStatus_id = userStatus.getUser().getId();
+        this.userUnique_id = userStatus.getId();
         this.nickname = userStatus.getUser().getNickname();
         this.userOption1 = userStatus.getUserOption1();
         this.userOption2 = userStatus.getUserOption2();
