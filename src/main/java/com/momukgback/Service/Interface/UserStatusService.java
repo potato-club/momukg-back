@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserStatusService {
-    // UserStatusResponseDto getStatusById(Long statusId);
     List<UserStatusListDto> getAllStatus();
     void updateStatus(Long userId, UserStatusRequestDto updateDto,
                       HttpServletRequest request);

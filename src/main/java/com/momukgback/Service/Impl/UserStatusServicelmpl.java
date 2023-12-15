@@ -96,7 +96,7 @@ public class UserStatusServicelmpl implements UserStatusService {
     @Override
     public void deleteStatus(Long userId, HttpServletRequest request) {
         vlidateStatus(userId, request);
-        userStatusRepository.deleteById(userId);
+        userStatusRepository.deleteByUserId(userId);
     }
 
     public UserStatus vlidateStatus(Long userId, HttpServletRequest request){

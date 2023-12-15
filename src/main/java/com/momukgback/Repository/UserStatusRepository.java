@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface UserStatusRepository extends JpaRepository<UserStatus, Long> {
         Optional<UserStatus> findById(Long id);
         Optional<UserStatus> findByUserId(Long userId);
+        void deleteByUserId(Long userId);
 
 }
