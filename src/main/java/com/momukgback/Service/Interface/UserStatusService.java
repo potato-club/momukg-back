@@ -11,15 +11,15 @@ import java.util.List;
 public interface UserStatusService {
     // UserStatusResponseDto getStatusById(Long statusId);
     List<UserStatusListDto> getAllStatus();
-    void updateStatus(Long statusId, UserStatusRequestDto updateDto,
+    void updateStatus(Long userId, UserStatusRequestDto updateDto,
                       HttpServletRequest request);
     void getStatusCreate(UserStatusRequestDto requestDto,
                          HttpServletRequest request);
 
-    UserStatus getStatus(Long id);
+    UserStatus getUserStatus(Long id);
 
-    UserStatusResponseDto viewStatus(Long statusId, HttpServletRequest request);
+    UserStatusResponseDto viewStatus(Long userId, HttpServletRequest request);
 
-    void deleteStatus(Long statusId, HttpServletRequest request);
+    void deleteStatus(Long userId, HttpServletRequest request);
 
 }

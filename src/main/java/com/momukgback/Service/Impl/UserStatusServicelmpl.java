@@ -44,22 +44,22 @@ public class UserStatusServicelmpl implements UserStatusService {
     */
 
     @Override
-    public UserStatus getStatus(Long id) {
-        return userStatusRepository.findById(id)
+    public UserStatus getUserStatus(Long id) {
+        return userStatusRepository.findByUserId(id)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 아이디 입니다.", ErrorCode.NOT_FOUND_EXCEPTION));
     }
 
 
     @Override
     public UserStatusResponseDto viewStatus(Long id, HttpServletRequest request){
-        UserStatus userStatus = getStatus(id);
-        UserStatusResponseDto responseDto = new UserStatusResponseDto(userStatus);
+        UserStatus useridStatus = getUserStatus(id);
+        UserStatusResponseDto responseDto = new UserStatusResponseDto(useridStatus);
         return responseDto;
     }
 
     @Override
-    public void updateStatus(Long statusId, UserStatusRequestDto updateDto, HttpServletRequest request) {
-            UserStatus userStatus = vlidateStatus(statusId, request);
+    public void updateStatus(Long userId, UserStatusRequestDto updateDto, HttpServletRequest request) {
+            UserStatus userStatus = vlidateStatus(userId, request);
             userStatus.updateStatus(updateDto);
     }
 
@@ -94,13 +94,13 @@ public class UserStatusServicelmpl implements UserStatusService {
     }
 
     @Override
-    public void deleteStatus(Long statusId, HttpServletRequest request) {
-        vlidateStatus(statusId, request);
-        userStatusRepository.deleteById(statusId);
+    public void deleteStatus(Long userId, HttpServletRequest request) {
+        vlidateStatus(userId, request);
+        userStatusRepository.deleteById(userId);
     }
 
-    public UserStatus vlidateStatus(Long statusId, HttpServletRequest request){
-        Optional<UserStatus> StatusAuth = userStatusRepository.findById(statusId);
+    public UserStatus vlidateStatus(Long userId, HttpServletRequest request){
+        Optional<UserStatus> StatusAuth = userStatusRepository.findByUserId(userId);
         User user = userService.findUserByToken(request);
         if (StatusAuth.isEmpty()) {
             throw new NotFoundException("게시물 없음", ErrorCode.NOT_FOUND_EXCEPTION);

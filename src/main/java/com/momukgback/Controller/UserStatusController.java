@@ -30,10 +30,10 @@ public class UserStatusController {
     }
 
     @Operation(summary = "내 유저 상태 조회 API")
-    @GetMapping("/{statusId}")
-    public UserStatusResponseDto viewStatus(@PathVariable(name = "statusId") Long statusId,
+    @GetMapping("/{userId}")
+    public UserStatusResponseDto viewStatus(@PathVariable(name = "userId") Long userId,
                                             HttpServletRequest request){
-        return userStatusService.viewStatus(statusId, request);
+        return userStatusService.viewStatus(userId, request);
     }
 
 
@@ -46,10 +46,10 @@ public class UserStatusController {
     }
 
     @Operation(summary = "유저 상태 삭제 API")
-    @DeleteMapping("/{statusId}")
-    public ResponseEntity<String> deleteBoard(@PathVariable(name = "statusId") Long statusId,
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteBoard(@PathVariable(name = "userId") Long userId,
                                               HttpServletRequest request){
-        userStatusService.deleteStatus(statusId, request);
+        userStatusService.deleteStatus(userId, request);
         return  ResponseEntity.ok("유저 상태가 삭제되었습니다.");
     }
 
@@ -57,11 +57,11 @@ public class UserStatusController {
 
 
     @Operation(summary = "유저 상태 수정 API")
-    @PutMapping("/{statusId}")
-    public ResponseEntity<String> updateStatus(@PathVariable(name = "statusId") Long statusId,
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> updateStatus(@PathVariable(name = "userId") Long userId,
                                               @RequestBody UserStatusRequestDto updateDto,
                                               HttpServletRequest request){
-        userStatusService.updateStatus(statusId, updateDto, request);
+        userStatusService.updateStatus(userId, updateDto, request);
         return ResponseEntity.ok("유저 상태 수정이 완료되었습니다.");
     }
 
